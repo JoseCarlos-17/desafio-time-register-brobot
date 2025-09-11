@@ -1,0 +1,18 @@
+module ActiveRecordErrors
+  extend ActiveSupport::Concern
+
+  included do
+    rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  end
+
+  private
+
+  def record_invalid(exception)
+    render json: { errors: exception.record.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  def record_not_found(exception)
+    render json: { errors: exception.message }, status: :not_found
+  end
+end

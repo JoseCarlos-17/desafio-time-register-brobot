@@ -33,7 +33,7 @@ COPY --from=build /rails /rails
 
 RUN useradd rails --create-home --shell /bin/bash && \
     mkdir -p log tmp/pids tmp/cache tmp/sockets && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /rails db log storage tmp
 
 USER rails:rails
 
