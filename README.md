@@ -4,6 +4,8 @@
 
 Esta aplicação é um sistema de controle de ponto para usuários, permitindo o registro de horários de trabalho, intervalos e saídas. O projeto inclui API RESTful para gerenciamento de usuários e seus registros de horário (`TimeRegister`), além de uma tarefa Rake para popular dados de teste.
 
+OBS: Quase todos os desafios, até os diferenciais, foram feitos, exceto o desafio 2 e também não foi feita a implementação do active_storage, ambos devido ao tempo limitado que eu tinha e que estava destinado a criação da rake task e da documentação. Espero que a documentação esteja compreensível.
+
 ---
 
 ## Pré-requisitos
