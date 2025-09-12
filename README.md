@@ -6,7 +6,7 @@ Esta aplicação é um sistema de controle de ponto para usuários, permitindo o
 
 OBS: Quase todos os desafios, até os diferenciais, foram feitos, exceto o desafio 2 e também não foi feita a implementação do active_storage, ambos devido ao tempo limitado que eu tinha e que estava destinado a criação da rake task e da documentação. Espero que a documentação esteja compreensível.
 
-Quanto a dockerização, só foi possível fazer a do banco postgresql pois a dockerização do rails estava dando problemas relacionados a permissão do usuário do postgres sobre modificação de arquivos, criação de tabelas no banco de dados, entre outras coisas, eu não consegui resolver isso e persistir só estava tomando o meu tempo.
+Quanto a dockerização, só foi possível fazer a do banco Postgresql pois a dockerização do Rails estava dando problemas relacionados a permissão do usuário do postgres sobre modificação de arquivos, criação de tabelas no banco de dados, entre outras coisas. Eu não consegui resolver isso e persistir só estava tomando o meu tempo, então decidi deixar o Rails de fora do container.
 
 ---
 
