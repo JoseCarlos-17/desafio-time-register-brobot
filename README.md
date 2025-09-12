@@ -85,6 +85,11 @@ docker compose up
 bundle exec rspec path_do_arquivo_de_teste
 ```
 
+caso queira executar todos os testes da pasta "spec/", execute o comando:
+```bash
+bundle exec rspec spec/
+```
+
 ---
 
 ## Documentação da API
