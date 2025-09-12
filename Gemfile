@@ -15,6 +15,7 @@ gem "image_processing"
 gem 'activestorage'
 gem 'active_model_serializers', '~> 0.10.15'
 gem 'pagy', '~> 9.1'
+gem 'faker'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
