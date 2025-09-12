@@ -4,8 +4,8 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ENV['DB_USERNAME']
+      POSTGRES_PASSWORD: ENV['DB_PASSWORD']
       POSTGRES_DB: desafio_time_register_brobot_development
     ports:
       - "5433:5432"
