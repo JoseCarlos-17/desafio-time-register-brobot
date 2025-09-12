@@ -57,7 +57,42 @@ RSpec.describe "Api::V1::Users", type: :request do
       end
 
       it 'must return status 422 status code' do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it 'must return errors message' do
+        expect(json_body).to have_key(:errors)
+      end
+    end
+
+    context 'when a user is trying to register yourself with a existing email' do
+      let!(:user) { create(:user, email: "johndoe@gmail.com") }
+      let(:user_params) { attributes_for(:user, name: "John doe",
+        email: "johndoe@gmail.com") }
+
+      before do
+        post '/api/v1/users', params: { user: user_params }
+      end
+
+      it 'must return status 422 status code' do
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it 'must return errors message' do
+        expect(json_body).to have_key(:errors)
+      end
+    end
+
+    context 'when a user is trying to register yourself with a invalid email' do
+      let(:user_params) { attributes_for(:user, name: "John doe",
+        email: "johndoe") }
+
+      before do
+        post '/api/v1/users', params: { user: user_params }
+      end
+
+      it 'must return status 422 status code' do
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it 'must return errors message' do
@@ -128,7 +163,7 @@ RSpec.describe "Api::V1::Users", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'must return the user time register attributes from the first element' do
+      it 'must return user time register attributes from the first element' do
         expect(json_body[0]).to include(:id, :clock_in, :clock_out, :user_id)
       end
     end

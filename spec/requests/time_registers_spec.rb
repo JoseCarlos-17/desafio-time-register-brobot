@@ -65,7 +65,67 @@ RSpec.describe "Api::V1::TimeRegisters", type: :request do
       end
 
       it 'must return status 422 status code' do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it 'must return errors message' do
+        expect(json_body).to have_key(:errors)
+      end
+    end
+
+    context 'when send wrong attributes' do
+      let!(:user) { create(:user) }
+      let(:time_register_invalid_params) { attributes_for(:time_register,
+        clock_in: nil, clock_out: nil, user_id: user.id) }
+
+      before do
+        post '/api/v1/time_registers',
+        params: { time_register: time_register_invalid_params }
+      end
+
+      it 'must return status 422 status code' do
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it 'must return errors message' do
+        expect(json_body).to have_key(:errors)
+      end
+    end
+
+    context 'when a user try to create a time register where clock_in is after clock_out' do
+      let!(:user) { create(:user) }
+      let(:time_register_params) { attributes_for(:time_register,
+        clock_in: "2025-09-09 10:00:00", clock_out: "2025-09-09 09:00:00",
+        user_id: user.id) }
+
+      before do
+        post '/api/v1/time_registers',
+        params: { time_register: time_register_params }
+      end
+
+      it 'must return status 422 status code' do
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
+      it 'must return errors message' do
+        expect(json_body).to have_key(:errors)
+      end
+    end
+
+    context 'when a user try to create 2 time registers without clock_out' do
+      let!(:user) { create(:user) }
+      let!(:time_register) { create(:time_register, user: user, clock_out: nil) }
+      let(:time_register_params) { attributes_for(:time_register,
+        clock_in: "2025-09-09 10:00:00", clock_out: nil,
+        user_id: user.id) }
+
+      before do
+        post '/api/v1/time_registers',
+        params: { time_register: time_register_params }
+      end
+
+      it 'must return status 422 status code' do
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it 'must return errors message' do
